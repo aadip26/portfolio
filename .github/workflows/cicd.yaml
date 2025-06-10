@@ -32,7 +32,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          SOURCE: ".next/ public/ package.json package-lock.json script/run.sh"
+          SOURCE: ".next public package.json package-lock.json script"
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.SERVER_TARGET }}
@@ -44,8 +44,8 @@ jobs:
           username: ${{ secrets.SERVER_USER}}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /home/ubuntu/
-            chmod +x run.sh
-            bash run.sh
+            cd ${{ secrets.SERVER_TARGET }}
+            chmod +x script/run.sh
+            bash script/run.sh
 
     
