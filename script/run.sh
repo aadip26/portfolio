@@ -1,8 +1,12 @@
 #!/bin/bash
 
-# sudo rm -r portfolio
-# unzip artifact.zip -d portfolio
-# cd portfolio
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Install pm2 glabaly
+npm install pm2 -g
 
 cd /home/ubuntu/portfolio
 npm  i
