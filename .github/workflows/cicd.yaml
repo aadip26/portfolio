@@ -25,14 +25,14 @@ jobs:
         run: |
           npm run build
       
-      - name: Zip artifact
-        run: zip -r artifact.zip .next public package.json
+      # - name: Zip artifact
+      #   run: zip -r artifact.zip .next public package.json
 
       - name: Deploy to SERVER
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          SOURCE: "artifact.zip script/run.sh"
+          SOURCE: ".next/ public/ package.json package-lock.json script/run.sh"
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.SERVER_TARGET }}
