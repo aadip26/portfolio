@@ -1,0 +1,50 @@
+name: DEV:Deploy Server and Worker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-server-worker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.10.0"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build files
+        run: |
+          npm run build
+      
+      - name: Zip artifact
+        run: zip -r artifact.zip .next public package.json node_modules
+
+      - name: Deploy to SERVER
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: "artifact.zip"
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          TARGET: ${{ secrets.SERVER_TARGET }}
+
+      # - name: Execute SERVER SSH Commands
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST_DEV }}
+      #     username: ${{ secrets.SERVER_USER_DEV }}
+      #     key: ${{ secrets.SERVER_SSH_KEY_DEV }}
+      #     script: |
+      #       cd /home/azureuser/quigon-saber
+      #       bash scripts/run.sh
+
+    
