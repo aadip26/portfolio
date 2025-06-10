@@ -37,14 +37,15 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.SERVER_TARGET }}
 
-      # - name: Execute SERVER SSH Commands
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.SERVER_HOST_DEV }}
-      #     username: ${{ secrets.SERVER_USER_DEV }}
-      #     key: ${{ secrets.SERVER_SSH_KEY_DEV }}
-      #     script: |
-      #       cd /home/azureuser/quigon-saber
-      #       bash scripts/run.sh
+      - name: Execute SERVER SSH Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST_DEV }}
+          username: ${{ secrets.SERVER_USER_DEV }}
+          key: ${{ secrets.SERVER_SSH_KEY_DEV }}
+          script: |
+            cd /home/ubuntu/
+            chmod +x run.sh
+            bash scripts/run.sh
 
     
