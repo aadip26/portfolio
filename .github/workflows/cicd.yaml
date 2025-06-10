@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20.10.0"
+          node-version: "20.19.2"
 
       - name: Install Dependencies
         run: npm install
@@ -26,7 +26,7 @@ jobs:
           npm run build
       
       - name: Zip artifact
-        run: zip -r artifact.zip .next public package.json node_modules
+        run: zip -r artifact.zip .next public package.json
 
       - name: Deploy to SERVER
         uses: easingthemes/ssh-deploy@main
